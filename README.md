@@ -1,1 +1,1 @@
-Python - Hello, World; Python - if/else, loops, functions;Python - import & modules
+python-hello_world; python-if_else_loops_functions; python-import_modules

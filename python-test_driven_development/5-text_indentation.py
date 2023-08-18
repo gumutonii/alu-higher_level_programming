@@ -1,18 +1,20 @@
 #!/usr/bin/python3
-""" print sqaure
-with characters
+"""
+module for text indentation
 """
 
 
-def print_square(size):
-    """just the function body
-    """
-    if type(size) is not int:
-        raise TypeError("size must be an integer")
-    elif size < 0:
-        raise ValueError("size must be >= 0")
+def text_indentation(text):
+    """ just the function
+    here """
 
-    length = size
-    while size > 0:
-        print("#" * length)
-        size -= 1
+    if type(text) is not str:
+        raise TypeError("text must be a string")
+
+    line = ""
+    for c in text:
+        line += c
+        if c in ['.', '?', ':']:
+            print((line + '\n').lstrip(' '))
+            line = ""
+    print(line.lstrip(' '), end="")

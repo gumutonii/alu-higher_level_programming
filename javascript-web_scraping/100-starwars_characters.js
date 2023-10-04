@@ -21,26 +21,22 @@ if (process.argv.length > 2) {
       const movie = JSON.parse(body);
       const charactersUrls = movie.characters;
 
-      const printCharacters = (urls, index = 0) => {
-        if (index >= urls.length) {
-          return;
-        }
-
-        request.get(urls[index], (error, response, body) => {
+      charactersUrls.forEach(characterUrl => {
+        request.get(characterUrl, (error, response, body) => {
           if (error) {
             console.error(`An error occurred while making the request: ${error}`);
-          } else if (response.statusCode !== 200) {
-            console.error(`Error: ${response.statusCode} - ${response.statusMessage}`);
-          } else {
-            const character = JSON.parse(body);
-            console.log(character.name);
+            return;
           }
 
-          printCharacters(urls, index + 1);
-        });
-      };
+          if (response.statusCode !== 200) {
+            console.error(`Error: ${response.statusCode} - ${response.statusMessage}`);
+            return;
+          }
 
-      printCharacters(charactersUrls);
+          const character = JSON.parse(body);
+          console.log(character.name);
+        });
+      });
     } catch (error) {
       console.error(`An error occurred while parsing the response: ${error}`);
     }
